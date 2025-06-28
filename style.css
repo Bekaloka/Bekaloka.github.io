@@ -79,6 +79,7 @@ body, html {
     font-size: 20px;
     color: #555;
     flex-basis: 100%;
+    margin-bottom: 10px;
 }
 
 #elements-sidebar {
@@ -118,7 +119,7 @@ body, html {
 }
 
 /* Стили для кнопок */
-#reset-button, #add-custom-button {
+#reset-button, #add-custom-button, #save-api-key-button {
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -126,10 +127,34 @@ body, html {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.2s ease;
+    margin-top: 5px;
 }
 
-#reset-button:hover, #add-custom-button:hover {
+#reset-button:hover, #add-custom-button:hover, #save-api-key-button:hover {
     background-color: #d0d0d0;
+}
+
+#api-key-input-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#api-key-input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#api-key-status {
+    flex-basis: 100%;
+    font-size: 12px;
+    color: green;
+    text-align: center;
 }
 
 /* Адаптивность для мобильных устройств */

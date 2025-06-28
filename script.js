@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultElement = document.getElementById('result-element');
     const resetButton = document.getElementById('reset-button');
     const addCustomButton = document.getElementById('add-custom-button');
+    const apiKeyInput = document.getElementById('api-key-input');
+    const saveApiKeyButton = document.getElementById('save-api-key-button');
+    const apiKeyStatus = document.getElementById('api-key-status');
 
-    const API_KEY = 'AIzaSyAHRP0yERDF8brcR-Co9WGVTA9j9tpM2S0';
-    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite-preview-06-17:generateContent?key=${API_KEY}`;
+    let currentApiKey = '';
+    const API_BASE_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite-preview-06-17:generateContent?key=`;
 
     // Начальные элементы
     const initialElements = new Set(['🔥 Огонь', '💧 Вода', '🌬️ Ветер', '🌎 Планета Земля', '🌱 Растение', '🧬 Жизнь', '🦠 Вирус', '💨 Кислород', '😡 Злость', '😊 Радость']);
@@ -30,6 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
             saveElements();
         }
         renderElements();
+
+        // Загрузка API ключа
+        const savedApiKey = localStorage.getItem('geminiApiKey');
+        if (savedApiKey) {
+            currentApiKey = savedApiKey;
+            apiKeyInput.value = savedApiKey;
+            apiKeyStatus.textContent = 'Ключ загружен.';
+            apiKeyStatus.style.color = 'green';
+        } else {
+            apiKeyStatus.textContent = 'Ключ не найден. Введите его.';
+            apiKeyStatus.style.color = 'orange';
+        }
     }
 
     // --- Создание и рендеринг элементов ---
@@ -50,6 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Обработка кликов по элементам ---
     async function handleElementClick(name, elementDiv) {
+        if (!currentApiKey) {
+            alert('Пожалуйста, сначала введите и сохраните ваш API ключ!');
+            return;
+        }
+
         if (selectedElements.length === 0) {
             // Выбран первый элемент
             selectedElements.push(name);
@@ -88,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `Что получится, если смешать ${el1} и ${el2}? Основывайся строго на логике алхимии и свойств элементов, обеспечивая логичное и постепенное развитие. Твой ответ должен быть на русском языке, быть креативным, но при этом реалистичным в контексте алхимии. В самом начале ответа поставь одно эмодзи, которое подходит новому элементу. Отвечай ТОЛЬКО эмодзи и названием нового элемента, без каких-либо дополнительных слов, объяснений или форматирования. Ответ должен быть не длиннее 5 слов. Дай ответ максимально логисно, но ты можешь давать абсурдные, нереальные и нелогические ответы если у тебя нету выбора. Если что ты создатель алхимии на сайте https://neal.fun/infinite-craft/`;
 
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(API_BASE_URL + currentApiKey, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -145,6 +165,21 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 alert('Этот элемент уже существует!');
             }
+        } else {
+            alert('Название элемента не может быть пустым.');
+        }
+    });
+
+    saveApiKeyButton.addEventListener('click', () => {
+        const key = apiKeyInput.value.trim();
+        if (key) {
+            localStorage.setItem('geminiApiKey', key);
+            currentApiKey = key;
+            apiKeyStatus.textContent = 'Ключ сохранен!';
+            apiKeyStatus.style.color = 'green';
+        } else {
+            apiKeyStatus.textContent = 'Ключ не может быть пустым.';
+            apiKeyStatus.style.color = 'red';
         }
     });
 
