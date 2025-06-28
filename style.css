@@ -1,0 +1,137 @@
+/* Общие стили */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f0f0; /* Светлый фон */
+    color: #333; /* Темный текст */
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+#container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Область для крафтинга */
+#crafting-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Белый фон */
+    padding: 20px;
+}
+
+#selected-elements-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.element-slot {
+    width: 150px;
+    height: 150px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #888;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+}
+
+#result-container {
+    margin-top: 20px;
+}
+
+#result-element {
+    width: 200px;
+    height: 100px;
+    border: 2px solid #4CAF50; /* Зеленая рамка для результата */
+    background-color: #e8f5e9; /* Светло-зеленый фон */
+    color: #388E3C; /* Темно-зеленый текст */
+    font-weight: bold;
+}
+
+/* Сайдбар */
+#sidebar-header {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+#sidebar-header h1 {
+    margin: 0;
+    font-size: 20px;
+    color: #555;
+}
+
+#elements-sidebar {
+    width: 250px;
+    min-width: 200px;
+    background-color: #f8f8f8;
+    border-left: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#elements-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* Стили для элементов в сайдбаре */
+.element {
+    padding: 5px 0;
+    font-size: 15px;
+    cursor: pointer; /* Теперь элементы кликабельны */
+    user-select: none;
+    text-align: left;
+    border-bottom: 1px solid #eee; /* Разделитель */
+    transition: background-color 0.2s ease;
+}
+
+.element:hover {
+    background-color: #e0e0e0;
+}
+
+.element.selected {
+    background-color: #d0d0d0;
+    font-weight: bold;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    #container {
+        flex-direction: column-reverse; /* Сайдбар сверху */
+    }
+    #elements-sidebar {
+        width: 100%;
+        height: 40vh; /* Сайдбар занимает 40% высоты */
+        border-left: none;
+        border-top: 1px solid #eee;
+    }
+    #crafting-area {
+        height: 60vh;
+    }
+    #selected-elements-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .element-slot {
+        width: 120px;
+        height: 120px;
+    }
+    #result-element {
+        width: 150px;
+        height: 80px;
+    }
+}
