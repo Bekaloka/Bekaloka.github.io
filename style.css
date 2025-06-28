@@ -44,6 +44,9 @@ body, html {
     color: #888;
     background-color: #f9f9f9;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 #result-container {
@@ -64,12 +67,18 @@ body, html {
     padding: 10px;
     border-bottom: 1px solid #eee;
     text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 #sidebar-header h1 {
     margin: 0;
     font-size: 20px;
     color: #555;
+    flex-basis: 100%;
 }
 
 #elements-sidebar {
@@ -106,6 +115,21 @@ body, html {
 .element.selected {
     background-color: #d0d0d0;
     font-weight: bold;
+}
+
+/* Стили для кнопок */
+#reset-button, #add-custom-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+#reset-button:hover, #add-custom-button:hover {
+    background-color: #d0d0d0;
 }
 
 /* Адаптивность для мобильных устройств */
